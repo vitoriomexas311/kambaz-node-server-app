@@ -1,5 +1,6 @@
 import "dotenv/config";
 import session from "express-session";
+import Hello from "./Hello.js";
 import UserRoutes from "./Kambaz/Users/routes.js";
 import CourseRoutes from "./Kambaz/Courses/routes.js";
 import ModuleRoutes from "./Kambaz/Modules/routes.js";
@@ -30,6 +31,7 @@ if (process.env.NODE_ENV !== "development") {
     };
 }
 app.use(session(sessionOptions));
+Hello(app);
 UserRoutes(app);
 CourseRoutes(app);
 ModuleRoutes(app);
