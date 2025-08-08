@@ -15,7 +15,7 @@ const allowedOrigins = [
     "http://localhost:5173",
     process.env.NETLIFY_URL
 ];
-const CONNECTION_STRING = process.env.CONNECTION_STRING;
+const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING;
 mongoose.connect(CONNECTION_STRING);
 const app = express();
 app.use(express.json());
