@@ -9,12 +9,26 @@ import EnrollmentRoutes from "./Kambaz/Enrollments/routes.js";
 import cors from "cors";
 import express from "express";
 import Lab5 from "./Lab5/index.js";
+import mongoose from "mongoose"
+
+const allowedOrigins = [
+    "http://localhost:5173",
+    process.env.NETLIFY_URL
+];
+const CONNECTION_STRING = process.env.CONNECTION_STRING;
+mongoose.connect(CONNECTION_STRING);
 const app = express();
 app.use(express.json());
 app.use(
     cors({
         credentials: true,
-        origin: process.env.NETLIFY_URL || "http://localhost:5173",
+        origin: (origin, callback) => {
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error("Not allowed by CORS"));
+            }
+        },
     })
 );
 const sessionOptions = {
